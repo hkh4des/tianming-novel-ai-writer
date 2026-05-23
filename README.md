@@ -2,6 +2,9 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
+> 🖥️ **寻找软件版？** 如果你更喜欢开箱即用的桌面应用体验，请移步：
+> **[天命-智能小说创作软件](https://github.com/zy-zmc/tianming-novel-ai-writer)**
+
 > **TianMing** — A modular AI Skill for co-writing long-form novels with Claude.
 > Restructured from a 995-line monolithic prompt into 30+ protocol files with
 > progressive disclosure, intent-based command routing, and built-in consistency enforcement.

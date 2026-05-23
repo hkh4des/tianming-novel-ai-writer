@@ -1,4 +1,16 @@
+> ## 📖 寻找提示词 Skill 版？
+>
+> 如果你想了解天命底层的**协议体系与提示词工程**，请移步 👉 **[天命 Skill（Claude Skill / Prompt Engineering）](https://github.com/zy-zmc/tianming-skill)**
+>
+> 适合想理解原理、自行组装或移植到其他平台的用户。
+
+---
+
 # 天命 - AI 网文创作系统
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-2.8.7-blue.svg)](https://github.com/zy-zmc/tianming-novel-ai-writer/releases)
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/)
 
 > **AI 不会天然记得一本千万字小说。天命做的事情是：把故事变成系统能管理的数据，让 AI 按数据写作。**
 
@@ -80,7 +92,9 @@
 
 ## 交流群
 
-<img width="200" alt="QQ群" src="https://github.com/user-attachments/assets/8f98736b-b251-4279-8586-77e3b6c8b6c7" />
+- [点击链接加入群聊【天命-智能创作（BUG收集）】](https://qm.qq.com/q/YWivpFjKou)
+
+群号：414086347
 
 ## 功能模块
 
@@ -232,3 +246,13 @@ dotnet run --project Core/App/天命.csproj
 ## 许可证
 
 [MIT License](LICENSE)
+
+---
+
+## 🙏 致谢
+
+感谢真诚、友善、团结、专业的 Linuxdo 社区，让我学到了那么多有关 AI 相关知识。
+
+[![LinuxDo community](https://img.shields.io/badge/LinuxDo-community-blue)](https://linux.do/)
+
+- [LinuxDo](https://linux.do/) 学 ai, 上 L 站!

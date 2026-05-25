@@ -15,6 +15,30 @@ namespace TM.Framework.User.Services
         private readonly SemaphoreSlim _saveLock = new(1, 1);
         private readonly ApiService _apiService;
 
+        private static SubscriptionData CreateLocalSubscriptionData()
+        {
+            var startTime = DateTime.Now.Date;
+            return new SubscriptionData
+            {
+                SubscriptionId = 0,
+                UserId = "local-user",
+                PlanType = "pro",
+                StartTime = startTime,
+                EndTime = startTime.AddYears(100),
+                IsActive = true,
+                Source = "local"
+            };
+        }
+
+        private SubscriptionData GetLocalSubscriptionData()
+        {
+            lock (_lock)
+            {
+                _cachedData = CreateLocalSubscriptionData();
+                return _cachedData;
+            }
+        }
+
         public SubscriptionService(ApiService apiService)
         {
             _subscriptionFilePath = StoragePathHelper.GetFilePath("Framework", "User/Services", "subscription.json");
@@ -28,6 +52,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return true;
+                }
+
                 lock (_lock)
                 {
                     return _cachedData?.IsActive ?? false;
@@ -39,6 +68,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return GetLocalSubscriptionData().PlanType ?? "pro";
+                }
+
                 lock (_lock)
                 {
                     return _cachedData?.PlanType ?? "free";
@@ -50,6 +84,12 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    var endTime = GetLocalSubscriptionData().EndTime;
+                    return endTime.HasValue ? (int)Math.Ceiling((endTime.Value - DateTime.Now).TotalDays) : 0;
+                }
+
                 lock (_lock)
                 {
                     if (_cachedData?.EndTime == null || _cachedData.EndTime <= DateTime.Now)
@@ -63,6 +103,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return GetLocalSubscriptionData().EndTime;
+                }
+
                 lock (_lock)
                 {
                     return _cachedData?.EndTime;
@@ -72,6 +117,11 @@ namespace TM.Framework.User.Services
 
         public SubscriptionData? GetSubscriptionInfo()
         {
+            if (TM.App.IsLocalMode)
+            {
+                return GetLocalSubscriptionData();
+            }
+
             lock (_lock)
             {
                 return _cachedData;
@@ -84,6 +134,12 @@ namespace TM.Framework.User.Services
 
         public async Task<SubscriptionData?> GetSubscriptionFromServerAsync()
         {
+            if (TM.App.IsLocalMode)
+            {
+                await Task.CompletedTask.ConfigureAwait(false);
+                return GetLocalSubscriptionData();
+            }
+
             try
             {
                 var apiResult = await _apiService.GetSubscriptionAsync().ConfigureAwait(false);
@@ -231,6 +287,21 @@ namespace TM.Framework.User.Services
 
         public async Task<List<ActivationHistoryItem>> GetActivationHistoryAsync()
         {
+            if (TM.App.IsLocalMode)
+            {
+                await Task.CompletedTask.ConfigureAwait(false);
+                var subscription = GetLocalSubscriptionData();
+                return new List<ActivationHistoryItem>
+                {
+                    new ActivationHistoryItem
+                    {
+                        CardKey = "LOCAL-MODE",
+                        DurationDays = RemainingDays,
+                        ActivatedTime = subscription.StartTime ?? DateTime.Now.Date
+                    }
+                };
+            }
+
             try
             {
                 var apiResult = await _apiService.GetActivationHistoryAsync().ConfigureAwait(false);

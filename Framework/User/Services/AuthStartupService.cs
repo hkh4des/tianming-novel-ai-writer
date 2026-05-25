@@ -23,6 +23,12 @@ namespace TM.Framework.User.Services
 
         public static async Task<bool> CheckLoginStatusAsync()
         {
+            if (TM.App.IsLocalMode)
+            {
+                await Task.CompletedTask;
+                return true;
+            }
+
             try
             {
                 var tokenManager = ServiceLocator.Get<AuthTokenManager>();
@@ -114,10 +120,10 @@ namespace TM.Framework.User.Services
             }
         }
 
-        public static string? CurrentUsername => TokenManager.Username;
+        public static string? CurrentUsername => TM.App.IsLocalMode ? TM.App.LocalUsername : TokenManager.Username;
 
-        public static string? CurrentUserId => TokenManager.UserId;
+        public static string? CurrentUserId => TM.App.IsLocalMode ? "local-user" : TokenManager.UserId;
 
-        public static bool IsLoggedIn => TokenManager.IsLoggedIn;
+        public static bool IsLoggedIn => TM.App.IsLocalMode || TokenManager.IsLoggedIn;
     }
 }

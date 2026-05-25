@@ -144,6 +144,11 @@ namespace TM
 
             try
             {
+                if (App.IsLocalMode)
+                {
+                    return;
+                }
+
                 NetworkChange.NetworkAvailabilityChanged += OnNetworkAvailabilityChanged;
                 NetworkChange.NetworkAddressChanged += OnNetworkAddressChanged;
 

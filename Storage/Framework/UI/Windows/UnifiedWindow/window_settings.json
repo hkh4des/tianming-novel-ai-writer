@@ -1,11 +1,11 @@
 {
-  "Left": 360,
-  "Top": 50.400000000000006,
+  "Left": 0,
+  "Top": 0,
   "Width": 1400,
-  "Height": 1000,
+  "Height": 788,
   "IsMaximized": false,
   "LeftColumnWidth": 220,
-  "CurrentMode": "Settings",
-  "SelectedTabName": "SystemSettings",
+  "CurrentMode": "Writing",
+  "SelectedTabName": "Design",
   "IsPinned": false
 }

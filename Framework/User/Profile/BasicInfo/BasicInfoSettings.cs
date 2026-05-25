@@ -36,6 +36,34 @@ namespace TM.Framework.User.Profile.BasicInfo
             return string.IsNullOrWhiteSpace(result) ? "user" : result;
         }
 
+        private static UserProfileData CreateLocalProfile(string username)
+        {
+            return new UserProfileData
+            {
+                Username = username,
+                DisplayName = "本地用户",
+                RealName = "本地用户",
+                Gender = "保密",
+                Country = "中国",
+                Bio = "本地模式用户",
+                CreatedTime = DateTime.Now,
+                LastUpdatedTime = DateTime.Now
+            };
+        }
+
+        private static UserProfileData CreateUserProfile(string username)
+        {
+            return TM.App.IsLocalMode && string.Equals(username, TM.App.LocalUsername, StringComparison.OrdinalIgnoreCase)
+                ? CreateLocalProfile(username)
+                : new UserProfileData
+                {
+                    Username = username,
+                    DisplayName = "用户",
+                    CreatedTime = DateTime.Now,
+                    LastUpdatedTime = DateTime.Now
+                };
+        }
+
         public string GetUserProfileFilePath(string username)
         {
             var safe = SanitizeFileName(username).ToLowerInvariant();
@@ -60,13 +88,7 @@ namespace TM.Framework.User.Profile.BasicInfo
                     Directory.CreateDirectory(directory);
                 }
 
-                var profile = new UserProfileData
-                {
-                    Username = username,
-                    DisplayName = "用户",
-                    CreatedTime = DateTime.Now,
-                    LastUpdatedTime = DateTime.Now
-                };
+                var profile = CreateUserProfile(username);
 
                 var json = JsonSerializer.Serialize(profile, JsonHelper.CnDefault);
                 var tmpBis = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
@@ -89,6 +111,14 @@ namespace TM.Framework.User.Profile.BasicInfo
                     return;
 
                 username = username.Trim();
+                if (TM.App.IsLocalMode && string.Equals(username, TM.App.LocalUsername, StringComparison.OrdinalIgnoreCase))
+                {
+                    FilePath = GetUserProfileFilePath(username);
+                    Data = CreateLocalProfile(username);
+                    _ = SaveDataAsync();
+                    return;
+                }
+
                 var targetPath = GetUserProfileFilePath(username);
                 if (!string.Equals(FilePath, targetPath, StringComparison.OrdinalIgnoreCase))
                 {
@@ -107,20 +137,20 @@ namespace TM.Framework.User.Profile.BasicInfo
                             string.Equals(previousData.Username, username, StringComparison.OrdinalIgnoreCase))
                         {
                             previousData.Username = username;
-                            if (string.IsNullOrWhiteSpace(previousData.DisplayName) ||
+                            if (TM.App.IsLocalMode && string.Equals(username, TM.App.LocalUsername, StringComparison.OrdinalIgnoreCase))
+                            {
+                                previousData.DisplayName = "本地用户";
+                                previousData.RealName = "本地用户";
+                                previousData.Bio = "本地模式用户";
+                            }
+                            else if (string.IsNullOrWhiteSpace(previousData.DisplayName) ||
                                 string.Equals(previousData.DisplayName, username, StringComparison.OrdinalIgnoreCase))
                                 previousData.DisplayName = "用户";
                             Data = previousData;
                         }
                         else
                         {
-                            Data = new UserProfileData
-                            {
-                                Username = username,
-                                DisplayName = "用户",
-                                CreatedTime = DateTime.Now,
-                                LastUpdatedTime = DateTime.Now
-                            };
+                            Data = CreateUserProfile(username);
                         }
 
                         _ = SaveDataAsync();
@@ -157,6 +187,14 @@ namespace TM.Framework.User.Profile.BasicInfo
                     return;
 
                 username = username.Trim();
+                if (TM.App.IsLocalMode && string.Equals(username, TM.App.LocalUsername, StringComparison.OrdinalIgnoreCase))
+                {
+                    FilePath = GetUserProfileFilePath(username);
+                    Data = CreateLocalProfile(username);
+                    await SaveDataAsync().ConfigureAwait(false);
+                    return;
+                }
+
                 var targetPath = GetUserProfileFilePath(username);
                 if (!string.Equals(FilePath, targetPath, StringComparison.OrdinalIgnoreCase))
                 {
@@ -175,20 +213,20 @@ namespace TM.Framework.User.Profile.BasicInfo
                             string.Equals(previousData.Username, username, StringComparison.OrdinalIgnoreCase))
                         {
                             previousData.Username = username;
-                            if (string.IsNullOrWhiteSpace(previousData.DisplayName) ||
+                            if (TM.App.IsLocalMode && string.Equals(username, TM.App.LocalUsername, StringComparison.OrdinalIgnoreCase))
+                            {
+                                previousData.DisplayName = "本地用户";
+                                previousData.RealName = "本地用户";
+                                previousData.Bio = "本地模式用户";
+                            }
+                            else if (string.IsNullOrWhiteSpace(previousData.DisplayName) ||
                                 string.Equals(previousData.DisplayName, username, StringComparison.OrdinalIgnoreCase))
                                 previousData.DisplayName = "用户";
                             Data = previousData;
                         }
                         else
                         {
-                            Data = new UserProfileData
-                            {
-                                Username = username,
-                                DisplayName = "用户",
-                                CreatedTime = DateTime.Now,
-                                LastUpdatedTime = DateTime.Now
-                            };
+                            Data = CreateUserProfile(username);
                         }
 
                         await SaveDataAsync().ConfigureAwait(false);

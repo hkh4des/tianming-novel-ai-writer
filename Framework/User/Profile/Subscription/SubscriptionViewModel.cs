@@ -162,6 +162,14 @@ namespace TM.Framework.User.Profile.Subscription
                 var history = await _subscriptionService.GetActivationHistoryAsync();
                 ActivationHistory.ReplaceAll(history);
 
+                if (TM.App.IsLocalMode)
+                {
+                    InviteCode = "LOCAL";
+                    InviteCount = 0;
+                    InviteRewardDays = 0;
+                    return;
+                }
+
                 try
                 {
                     var profileResult = await _apiService.GetProfileAsync();

@@ -35,6 +35,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return true;
+                }
+
                 lock (_lock)
                 {
                     return _cachedTokenData != null &&
@@ -48,6 +53,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return false;
+                }
+
                 lock (_lock)
                 {
                     return _cachedTokenData == null ||
@@ -105,6 +115,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return "local-user";
+                }
+
                 lock (_lock)
                 {
                     return _cachedTokenData?.UserId;
@@ -116,6 +131,11 @@ namespace TM.Framework.User.Services
         {
             get
             {
+                if (TM.App.IsLocalMode)
+                {
+                    return TM.App.LocalUsername;
+                }
+
                 lock (_lock)
                 {
                     return _cachedTokenData?.Username;

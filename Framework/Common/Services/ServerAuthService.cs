@@ -313,6 +313,11 @@ namespace TM.Framework.Common.Services
 
         public async Task<AuthResult> ValidateTokenAsync()
         {
+            if (TM.App.IsLocalMode)
+            {
+                return new AuthResult { Success = true };
+            }
+
             if (string.IsNullOrEmpty(_accessToken))
             {
                 return new AuthResult
@@ -372,6 +377,11 @@ namespace TM.Framework.Common.Services
 
         private async Task<HeartbeatResult> SendHeartbeatInternalAsync(bool allowRefresh)
         {
+            if (TM.App.IsLocalMode)
+            {
+                return new HeartbeatResult { Success = true, SubscriptionValid = true };
+            }
+
             if (string.IsNullOrEmpty(_accessToken))
             {
                 return new HeartbeatResult { Success = false };
@@ -563,6 +573,11 @@ namespace TM.Framework.Common.Services
         #region R5
         public async Task<bool?> CheckFeatureAuthAsync(string featureId)
         {
+            if (TM.App.IsLocalMode)
+            {
+                return true;
+            }
+
             if (string.IsNullOrEmpty(_accessToken))
             {
                 return false;
@@ -682,7 +697,7 @@ namespace TM.Framework.Common.Services
             }
         }
 
-        public bool IsLoggedIn => !string.IsNullOrEmpty(_accessToken) && DateTime.UtcNow < _tokenExpireTime;
+        public bool IsLoggedIn => TM.App.IsLocalMode || (!string.IsNullOrEmpty(_accessToken) && DateTime.UtcNow < _tokenExpireTime);
 
         public void Logout()
         {

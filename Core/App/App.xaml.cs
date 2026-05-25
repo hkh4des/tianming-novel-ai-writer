@@ -86,6 +86,8 @@ namespace TM
         private const uint OpenExisting = 3;
 
         public static bool IsDebugMode { get; private set; }
+        public static bool IsLocalMode { get; } = true;
+        public const string LocalUsername = "local";
 
         private IWindowFactory? _windowFactory;
         private ThemeManager? _themeManager;
@@ -265,15 +267,25 @@ namespace TM
 
                 Log("[启动] 所有登录前服务已就绪");
 
-                Log("[启动] 显示登录窗口...");
-                var loginWindow = _windowFactory!.CreateWindow<LoginWindow>();
-                var loginResult = loginWindow.ShowDialog();
-
-                if (loginResult != true)
+                string? loggedInUsername = LocalUsername;
+                if (IsLocalMode)
                 {
-                    Log("[启动] 用户取消登录，程序退出");
-                    Shutdown();
-                    return;
+                    Log("[启动] 本地模式：跳过登录窗口");
+                }
+                else
+                {
+                    Log("[启动] 显示登录窗口...");
+                    var loginWindow = _windowFactory!.CreateWindow<LoginWindow>();
+                    var loginResult = loginWindow.ShowDialog();
+
+                    if (loginResult != true)
+                    {
+                        Log("[启动] 用户取消登录，程序退出");
+                        Shutdown();
+                        return;
+                    }
+
+                    loggedInUsername = loginWindow.LoggedInUsername;
                 }
 
                 var postLoginWarmup = Task.WhenAll(
@@ -310,9 +322,9 @@ namespace TM
 
                 try
                 {
-                    if (!string.IsNullOrWhiteSpace(loginWindow.LoggedInUsername))
+                    if (!string.IsNullOrWhiteSpace(loggedInUsername))
                     {
-                        _basicInfoSettings!.SwitchUser(loginWindow.LoggedInUsername);
+                        _basicInfoSettings!.SwitchUser(loggedInUsername);
                         _currentUserContext!.Refresh();
                     }
                 }

@@ -1,0 +1,66 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+out/
+publish/
+
+# Visual Studio
+.vs/
+.vscode/.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+*.nupkg
+*.snupkg
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# .NET test and coverage artifacts
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+coverage.*.xml
+
+# Logs and runtime diagnostics
+*.log
+*.dmp
+*.trace
+*.etl
+
+# App runtime data
+Storage/Logs/
+Storage/Backups/
+Storage/Temp/
+Storage/Cache/
+Storage/**/cache/
+Storage/**/Cache/
+Storage/**/tmp/
+Storage/**/temp/
+
+# Local user/account secrets
+Storage/Framework/User/Account/Login/accounts.json
+Storage/Framework/User/Account/Login/remembered.json
+Storage/Framework/User/Services/tokens.json
+Storage/Framework/User/**/tokens.json
+Storage/**/api_keys*.json
+Storage/**/apikey*.json
+Storage/**/secrets*.json
+Storage/**/credentials*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~

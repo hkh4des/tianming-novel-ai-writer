@@ -5,7 +5,7 @@
   ],
   "EasingType": 0,
   "Duration": 2000,
-  "TargetFPS": 240,
+  "TargetFPS": 32,
   "IntensityMultiplier": 1,
   "Preset": 0,
   "ViewSwitchEnabled": true,

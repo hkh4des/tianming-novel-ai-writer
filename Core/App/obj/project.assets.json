@@ -5494,19 +5494,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\bin4ry\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "2.8.8",
     "restore": {
-      "projectUniqueName": "E:\\AI\\天命2.8.7\\Core\\App\\天命.csproj",
+      "projectUniqueName": "C:\\Users\\bin4ry\\Desktop\\Project\\tianming-novel-ai-writer\\Core\\App\\天命.csproj",
       "projectName": "天命",
-      "projectPath": "E:\\AI\\天命2.8.7\\Core\\App\\天命.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "E:\\AI\\天命2.8.7\\Core\\App\\obj\\",
+      "projectPath": "C:\\Users\\bin4ry\\Desktop\\Project\\tianming-novel-ai-writer\\Core\\App\\天命.csproj",
+      "packagesPath": "C:\\Users\\bin4ry\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bin4ry\\Desktop\\Project\\tianming-novel-ai-writer\\Core\\App\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\bin4ry\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows10.0.19041.0"
@@ -5667,7 +5667,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

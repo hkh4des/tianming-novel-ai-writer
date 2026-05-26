@@ -126,16 +126,27 @@ namespace TM.Services.Modules.ProjectData.Implementations.Generation
         {
             if (string.IsNullOrEmpty(text)) return text;
 
+            text = HardGarbledTextRegex.Replace(text, string.Empty);
+            text = ContextGarbledTextRegex.Replace(text, string.Empty);
             text = SentenceCommaArtifactRegex.Replace(text, "$1");
             text = CommaSentenceArtifactRegex.Replace(text, "$1");
             text = DuplicateCommaRegex.Replace(text, "，");
             text = LeadingCommaRegex.Replace(text, "$1");
             text = TrailingCommaRegex.Replace(text, "$1");
-            return DuplicateSentencePunctuationRegex.Replace(text, "$1");
+            text = DuplicateSentencePunctuationRegex.Replace(text, "$1");
+            text = SentenceEnumerationCommaRegex.Replace(text, "$1");
+            text = EnumerationCommaSentenceRegex.Replace(text, "$1");
+            return DuplicateEnumerationCommaRegex.Replace(text, "、");
         }
 
         private static readonly Regex BlankLineCollapser =
             new(@"\n{3,}", RegexOptions.Compiled);
+
+        private static readonly Regex HardGarbledTextRegex =
+            new(@"[�-▍]", RegexOptions.Compiled);
+
+        private static readonly Regex ContextGarbledTextRegex =
+            new(@"(?<=[一-鿿㐀-䶿＀-￯])[■-◿☀-⛿✀-➿⬀-⯿]+(?=[一-鿿㐀-䶿＀-￯])", RegexOptions.Compiled);
 
         private static readonly Regex SentenceCommaArtifactRegex =
             new(@"([。！？])[,，]+", RegexOptions.Compiled);
@@ -154,6 +165,15 @@ namespace TM.Services.Modules.ProjectData.Implementations.Generation
 
         private static readonly Regex DuplicateSentencePunctuationRegex =
             new(@"([。！？])\1+", RegexOptions.Compiled);
+
+        private static readonly Regex SentenceEnumerationCommaRegex =
+            new(@"([。！？])、+", RegexOptions.Compiled);
+
+        private static readonly Regex EnumerationCommaSentenceRegex =
+            new(@"、+([。！？])", RegexOptions.Compiled);
+
+        private static readonly Regex DuplicateEnumerationCommaRegex =
+            new(@"、{2,}", RegexOptions.Compiled);
 
         public static async Task<string> ApplyPreLLMAsync(string text, PickerScorers? scorers, CancellationToken ct = default)
         {

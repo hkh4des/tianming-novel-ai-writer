@@ -23,7 +23,7 @@ namespace TM.Services.Modules.ProjectData.Implementations.Generation
             new(@"^\s*[-\*]\s+\*\*[^\*]+\*\*[:：]", RegexOptions.Compiled | RegexOptions.Multiline);
 
         private static readonly Regex MarkdownHorizontalRuleRegex =
-            new(@"^\s*(?:---+|\*\*\*+|===+)\s*$", RegexOptions.Compiled | RegexOptions.Multiline);
+            new(@"^\s*(?:—+|\*\*\*+|===+)\s*$", RegexOptions.Compiled | RegexOptions.Multiline);
 
         private static readonly Regex[] NovelMarkdownRegexes =
         {

@@ -861,6 +861,8 @@ namespace TM.Modules.Design.Elements.LocationRules
                 }
 
                 TM.App.Log($"[LocationRulesViewModel] SaveBatchEntitiesAsync: 成功保存 {result.Count}/{entities.Count} 个实体");
+                if (result.Count > 0)
+                    RefreshTreeAndCategorySelection();
                 return result;
             }
             finally

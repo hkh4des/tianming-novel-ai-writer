@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("天命")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.8.8.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.8.8+b6fd0dbd32c48fc3ecbd1575bda6160803ed849f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.8.8+2f401fa6f59e45f02783643727cc22a81d5a1c4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("天命")]
 [assembly: System.Reflection.AssemblyTitleAttribute("天命")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.8.8.0")]

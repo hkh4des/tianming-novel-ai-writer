@@ -225,6 +225,7 @@ namespace TM.Modules.Design.Templates.CreativeMaterials
             if (!IsMultiGenreMode)
             {
                 await base.ExecuteBatchAIGenerateAsync(config);
+                RefreshTreeAndCategorySelection();
                 return;
             }
 

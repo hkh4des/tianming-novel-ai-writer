@@ -99,9 +99,11 @@ public class ApiKeyRotationService
                     health.ConsecutiveFailures++;
                     health.LastFailureReason = result;
                     health.LastErrorMessage = rawErrorMessage;
-                    PermanentlyDisableKey(pool, providerId, keyId);
+                    // PermanentlyDisableKey(pool, providerId, keyId);
                     if (!IsTianmingPrivateProvider(providerId))
-                        TM.App.Log($"[ApiKeyRotation] 永久禁用密钥 {keyId}: {result} - {rawErrorMessage}");
+                        TM.App.Log($"[ApiKeyRotation] 密钥请求失败但不禁用: {keyId}: {result} - {rawErrorMessage}");
+                    // if (!IsTianmingPrivateProvider(providerId))
+                    //     TM.App.Log($"[ApiKeyRotation] 永久禁用密钥 {keyId}: {result} - {rawErrorMessage}");
                     break;
 
                 case KeyUseResult.RateLimited:

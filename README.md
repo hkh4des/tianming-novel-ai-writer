@@ -1,3 +1,4 @@
+P.s：不需要刻意进群，开源版自己部署，不需要卡密，如果连项目都看不明白，不建议使用，如果用正式版，请遵守我的要求！
 ## 交流群
 
 - [点击链接加入群聊【天命-智能创作（BUG收集）】](https://qm.qq.com/q/YWivpFjKou)
@@ -265,10 +266,3 @@ dotnet run --project Core/App/天命.csproj
 
 ---
 
-## 🙏 致谢
-
-感谢真诚、友善、团结、专业的 Linuxdo 社区，让我学到了那么多有关 AI 相关知识。
-
-[![LinuxDo community](https://img.shields.io/badge/LinuxDo-community-blue)](https://linux.do/)
-
-- [LinuxDo](https://linux.do/) 学 ai, 上 L 站!
